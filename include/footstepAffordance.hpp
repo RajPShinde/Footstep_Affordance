@@ -19,6 +19,14 @@ class FootstepAffordance
         
         ~FootstepAffordance();
 
+        unsigned int computeMeanAndCovariance(Eigen::Vector3d& meanPosition, Eigen::Matrix3d& covarianceMatrix, const std::vector<Eigen::Vector3d>& cloud);
+
+        void solvePlaneParameters(Eigen::Vector3d &normal, double &curvature, const Eigen::Matrix3d &covarianceMatrix);
+
+        void computeRoots(Eigen::Vector3d& roots, const Eigen::Matrix3d& m);
+
+        void computeRoots2(Eigen::Vector3d& roots, const Eigen::Matrix3d::Scalar& b, const Eigen::Matrix3d::Scalar& c);
+
         void regionOfInterest();
 
         void run(octomap::OcTree* octomap, 
@@ -33,9 +41,9 @@ class FootstepAffordance
 
         void addToCostmap(Eigen::Vector3d surfaceCellXYZ, double &totalCost, std::map<std::pair<double, double>, double> &cMap);
 
-
     private:    
 
+        const double distanceFromRobot = 0.3;
         double maxX = 2; 
         double minX = 1;
         double maxY = 0.15;
@@ -45,8 +53,9 @@ class FootstepAffordance
         TerrainData terrainParameters;
         int depth_ = 16;
         bool firstRun_ = false;
+        int neighbourMaxX, neighbourMaxY, neighbourMaxZ = 2;
+        int neighbourMinX, neighbourMinY, neighbourMinZ = -2;
         terrainFeature::Feature features;
-
 };
 
 }
