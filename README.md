@@ -23,13 +23,15 @@ This is a ROS package to create a cost map of a terrain based on the slope for p
 4. Eigen
 
 ## Subscriptions
-1.
-2.
-
+1. ```/octomap_binary```
 
 ## Publications
-1.
-2.
+1. ```/heightMapVisualization```
+2. ```/costMapVisualization```
+
+## Params
+1. ```world_frame```(default:/odom)
+2. ```robot_frame```(default:/base_link)
 
 ## Citations
 C. Mastalli, I. Havoutis, M. Focchi, D. G. Caldwell, C. Semini, Motion planning for challenging locomotion: a study of decoupled and coupled approaches, IEEE International Conference on Robotics and Automation (ICRA), 2017
