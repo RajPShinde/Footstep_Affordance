@@ -260,20 +260,22 @@ void FootstepAffordance::calculateCost(octomap::OcTree* octomap, const octomap::
 
 	octomap::OcTreeKey neighbourKey;
 	octomap::OcTreeNode* neighbourNode = surfaceCellNode;
+	bool yq = false;
 	ROS_ERROR_STREAM("Neighbours");
-	for(int z = neighbourMinZ; z<=neighbourMaxZ; z++) {
-		for(int y = neighbourMinY; y<=neighbourMaxY; y++) {
-			for(int x = neighbourMinX; x<=neighbourMaxX; x++) {
+	for(int z = -1; z<=1; z++) {
+		for(int y = -1; y<=1; y++) {
+			for(int x = -1; x<=1; x++) {
 				neighbourKey[0] = surfaceCellKey[0] + x;
 				neighbourKey[1] = surfaceCellKey[1] + y;
 				neighbourKey[2] = surfaceCellKey[2] + z;
 				neighbourNode = octomap->search(neighbourKey, depth_);
-				ROS_ERROR_STREAM(z);
+				yq =true;
+				//ROS_ERROR_STREAM(z);
 				// Check if this neighbour exists
 				if(neighbourNode) {
-					ROS_ERROR_STREAM("Found1");
+					// ROS_ERROR_STREAM("Found1");
 					if(octomap->isNodeOccupied(neighbourNode)) {
-						ROS_ERROR_STREAM("Found2");
+						// ROS_ERROR_STREAM("Found2");
 						Eigen::Vector3d neighbourCellXYZ;
 						octomap::point3d neighbourCellPoint;
 						neighbourCellPoint = octomap->keyToCoord(neighbourKey, depth_);
@@ -287,24 +289,26 @@ void FootstepAffordance::calculateCost(octomap::OcTree* octomap, const octomap::
 			}
 		}
 	}
-
-    ROS_ERROR_STREAM("Found Neighbours");
+	if(yq)
+		ROS_WARN_STREAM("HAA andar gaya tha");
 	if(atLeastOneNeighbour) {
 		//compute cost
+		ROS_ERROR_STREAM("At Least One Neighbour");
 		EIGEN_ALIGN16 Eigen::Matrix3d covarianceMatrix;
-		if(allNeighboursPosition.size()<3) {
-			computeMeanAndCovariance(terrainParameters.meanPosition, covarianceMatrix, allNeighboursPosition);
-		}
-		else
+		if(allNeighboursPosition.size()<3 || computeMeanAndCovariance(terrainParameters.meanPosition, covarianceMatrix, allNeighboursPosition)==0){
+			ROS_ERROR_STREAM("<3");
 			return;
+		}
+		ROS_WARN_STREAM(allNeighboursPosition.size());
 		terrainParameters.centroidPosition(0) = allNeighboursPosition[0](0);
-		terrainParameters.centroidPosition(0) = allNeighboursPosition[0](1);
-		terrainParameters.centroidPosition(0) = allNeighboursPosition[0](2);
+		terrainParameters.centroidPosition(1) = allNeighboursPosition[0](1);
+		terrainParameters.centroidPosition(2) = allNeighboursPosition[0](2);
 		
 		solvePlaneParameters(terrainParameters.normal, terrainParameters.curvature, covarianceMatrix);
 	}
 
 	ROS_ERROR_STREAM("Cost");
+	ROS_ERROR_STREAM(terrainParameters.normal);
 	double cost, weight, totalCost = 0;
 	// for(auto i: features) {
 		features.computeSlopeCost(cost, terrainParameters);
