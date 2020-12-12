@@ -1,16 +1,37 @@
-# footstep_affordance
+# Footstep Affordance
 
 [![Build Status](https://travis-ci.org/RajPShinde/footstep_affordance.svg?branch=master)](https://travis-ci.org/RajPShinde/footstep_affordance)
 [![License BSD 3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/RajPShinde/footstep_affordance/blob/master/LICENSE)
 ---
 
-## Dependencies
-1. Ubuntu 18.04
-2. C++ 11/14/17
-3. Eigen
-4. ROS Melodic
+## Overview
+This is a ROS package to create a cost map of a terrain based on the slope for providing possible foothold locations for legged robots. It uses the 3D-Occupancy from the octomap to create a height map of the terrain, this height map is used to obtain slope at each point using PCA.  
 
-## References
+<p align="center">
+<img src="data/costmap.png"/>
+</p>
+<p align="center">
+<img src="data/steps.png"/>
+</p>
+
+## Dependencies
+1. Ubuntu 16.04 and above
+2. ROS Kinetic and above
+3. C++ 11/14/17
+4. octomap-ros
+5. octomap-server
+4. Eigen
+
+## Subscriptions
+1.
+2.
+
+
+## Publications
+1.
+2.
+
+## Citations
 C. Mastalli, I. Havoutis, M. Focchi, D. G. Caldwell, C. Semini, Motion planning for challenging locomotion: a study of decoupled and coupled approaches, IEEE International Conference on Robotics and Automation (ICRA), 2017
 
 ## Disclaimer
