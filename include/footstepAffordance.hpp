@@ -44,17 +44,17 @@ class FootstepAffordance
     private:    
 
         const double distanceFromRobot = 0.3;
-        double maxX = 2; 
-        double minX = 1;
-        double maxY = 0.15;
-        double minY = -0.15; 
-        double maxZ = 0.8;
-        double minZ = -0.8;
+        double maxX = 1.0; 
+        double minX = 0.24;
+        double maxY = 0.18;
+        double minY = -0.18; 
+        double maxZ = 0.4;
+        double minZ = -0.4;
         TerrainData terrainParameters;
         int depth_ = 16;
         bool firstRun_ = false;
-        int neighbourMaxX, neighbourMaxY, neighbourMaxZ = 2;
-        int neighbourMinX, neighbourMinY, neighbourMinZ = -2;
+        int neighbourMaxX, neighbourMaxY, neighbourMaxZ = 1;
+        int neighbourMinX, neighbourMinY, neighbourMinZ = -1;
         terrainFeature::Feature features;
 };
 

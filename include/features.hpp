@@ -16,6 +16,8 @@ class Feature {
 
     	void computeSlopeCost(double &cost, costmap::TerrainData &terrainParameters);
 
+    	void computeHeightDeviationCost(double& cost, costmap::TerrainData &terrainParameters);
+
 	private:
 		double flatThreshold_, steepThreshold_;
 		double maxCost_ = 1; 
