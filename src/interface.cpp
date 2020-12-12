@@ -12,8 +12,8 @@ Interface::Interface(ros::NodeHandle& nh) : interface_(nh), robotFrame_("base_li
     tfOctomapSub_ = new tf::MessageFilter<octomap_msgs::Octomap>(*octomapSub_, tf_listener_, worldFrame_, 5);
     tfOctomapSub_->registerCallback(boost::bind(&Interface::octomapCallback, this, _1));
 
-    visualizeHeightMapPub = vis_.advertise<visualization_msgs::MarkerArray>( "/heightMap", 10 );
-    visualizeCostMapPub = vis_.advertise<visualization_msgs::MarkerArray>( "/costMap", 10 );
+    visualizeHeightMapPub = vis_.advertise<visualization_msgs::MarkerArray>( "/heightMapVisualization", 10 );
+    visualizeCostMapPub = vis_.advertise<visualization_msgs::MarkerArray>( "/costMapVisualization", 10 );
 
 }
 
@@ -141,7 +141,19 @@ void Interface::visualizeCostMap(std::map<std::pair<double, double>, double> &hM
         marker.markers[i].color.a = 1.0; 
         marker.markers[i].color.r = 0.0;
         marker.markers[i].color.g = 0.0;
-        marker.markers[i].color.b = 1.0/it->second;
+        // if(it->second==0){
+        // marker.markers[i].color.r = 0.0;
+        // marker.markers[i].color.g = 1.0;
+        // marker.markers[i].color.b = 0.0;
+        // }
+        // else{
+        // marker.markers[i].color.r = it->second;
+        // marker.markers[i].color.g = 0.0;
+        // marker.markers[i].color.b = 0.0;   
+        // }
+        marker.markers[i].color.r = (it->second > 0.5 ? 1.0 : 2*it->second);
+        marker.markers[i].color.g = (it->second > 0.5 ? 1-2*(it->second-0.5) : 1.0);
+        marker.markers[i].color.b = 0.0; 
         i++;
     }
     visualizeCostMapPub.publish(marker);
