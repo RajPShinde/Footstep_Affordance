@@ -1,4 +1,4 @@
-<img src="data/footstep.png"/>
+<img src="data/logo.png"/>
 
 [![Build Status](https://travis-ci.org/RajPShinde/footstep_affordance.svg?branch=master)](https://travis-ci.org/RajPShinde/footstep_affordance)
 [![License BSD 3-Clause](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/RajPShinde/footstep_affordance/blob/master/LICENSE)
