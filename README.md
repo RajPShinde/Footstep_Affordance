@@ -11,7 +11,7 @@ This is a ROS package to create a cost map of a terrain based on the slope for p
 <img src="data/doggo.gif"/>
 </p>
 <p align="center">
-<img src="data/steps.png"/>
+<img src="data/costmap.png" width="600"/>
 </p>
 
 ## Dependencies
