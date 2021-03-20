@@ -8,7 +8,7 @@
 This is a ROS package to create a cost map of a terrain based on the slope for providing possible foothold locations for legged robots. It uses the 3D-Occupancy from the octomap to create a height map of the terrain, this height map is used to obtain slope at each point using PCA.  
 
 <p align="center">
-<img src="data/costmap.png"/>
+<img src="data/doggo.gif"/>
 </p>
 <p align="center">
 <img src="data/steps.png"/>
